@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,14 +53,23 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="index.html" class="active">Главный</a></li>
-                    <li><a href="about.html">O</a></li>
-                    <li><a href="services.html">Новости</a></li>
-                    <li><a href="testimonials.html">Контакт</a></li>
-                    <li><a href="https://greenmetrics.loc/login">Войти</a></li>
+                    <li><a href="{% url 'main:home' %}" class="active">Home</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">News</a></li>
+                    <li><a href="">Contact</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
+            <form action="{% url 'set_language' %}" method="post" class="mb-0">
+                {% csrf_token %}
+                <select name="language" class="form-select form-select-sm" onchange="this.form.submit()">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% for lang in LANGUAGES %}
+                        <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>{{ lang.1 }}</option>
+                    {% endfor %}
+                </select>
+            </form>
 
         </div>
     </header>
@@ -176,8 +186,8 @@
     <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
     <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
-    <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
     <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
 
     <!-- Main JS File -->
     <script src="{% static 'assets/js/main.js' %}"></script>

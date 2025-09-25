@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title dark-background" data-aos="fade" style="background-image: url({% static 'assets/img/page-title-bg.webp' %});">
+      <div class="container position-relative">
+        <h1>Blog Details</h1>
+        <p>{{ new.title }}</p>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="{% url 'main:home' %}">Home</a></li>
+            <li class="current">Blog Details</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-8">
+
+          <!-- Blog Details Section -->
+          <section id="blog-details" class="blog-details section">
+            <div class="container">
+
+              <article class="article">
+
+                <div class="post-img">
+                  <img src="{{ new.img.url }}" alt="" class="img-fluid">
+                </div>
+
+                <h2 class="title">{{ new.title }}</h2>
+
+                <div class="meta-top">
+                  <ul>
+                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="">{{ new.author }}</a></li>
+                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href=""><time datetime="2020-01-01">{{ new.date|date:"Y-m-d" }}</time></a></li>
+                  </ul>
+                </div><!-- End meta top -->
+
+                  <div class="content">
+                    {{ new.description|safe }}
+                  </div><!-- End post content -->
+
+
+              </article>
+
+            </div>
+          </section><!-- /Blog Details Section -->
+
+
+        </div>
+
+        <div class="col-lg-4 sidebar">
+
+          <div class="widgets-container">
+
+            <!-- Blog Author Widget -->
+            <div class="blog-author-widget widget-item">
+
+              <div class="d-flex flex-column align-items-center">
+                <div class="d-flex align-items-center w-100">
+                  <img src="assets/img/blog/blog-author.jpg" class="rounded-circle flex-shrink-0" alt="">
+                  <div>
+                     <h4><strong>Author:</strong> {{ new.author }}</h4>
+                  </div>
+                </div>
+
+              </div>
+
+            </div><!--/Blog Author Widget -->
+
+            <!-- Search Widget -->
+            <div class="search-widget widget-item">
+
+              <h3 class="widget-title">Search</h3>
+              <form action="">
+                <input type="text">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+              </form>
+
+            </div><!--/Search Widget -->
+
+
+            <!-- Recent Posts Widget 2 -->
+            <div class="recent-posts-widget-2 widget-item">
+
+              <h3 class="widget-title">Recent Posts</h3>
+
+              {% for recent_new in recent_news %}
+              <div class="post-item">
+                <img src="{{ recent_new.img.url }}" alt="" class="img-fluid">
+                <h4><a href="{% url 'main:news-details' recent_new.id %}">{{ recent_new.title }}</a></h4>
+                <time datetime="2020-01-01">{{ recent_new.date|date:"Y-m-d" }}</time>
+              </div><!-- End recent post item-->
+              {% endfor %}
+
+
+            </div><!--/Recent Posts Widget 2 -->
+
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+{% endblock %}

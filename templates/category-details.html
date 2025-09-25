@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <main class="main">
+
+
+    <div class="container">
+      <div class="row d-flex align-items-stretch">
+
+        <div class="col-lg-6">
+
+          <!-- Blog Details Section -->
+          <section id="blog-details" class="blog-details section">
+            <div class="container">
+
+              <article class="article">
+
+
+                <h2 class="title text-center">{{ category.name }}</h2>
+
+
+                  <div class="content">
+                    {{ category.about|safe }}
+                  </div><!-- End post content -->
+
+
+              </article>
+
+            </div>
+          </section><!-- /Blog Details Section -->
+
+
+        </div>
+
+        <div class="col-lg-6">
+
+          <section class="blog-details d-flex flex-column gap-1">
+          <!-- Category Items card -->
+          {% if category_items_ %}
+          {% for category_item in category_items_ %}
+          <a href="{% url 'main:category-item-details' category_item.id %}">
+           <div class="card">
+              <p class="card-text">{{ category_item.name }}</p>
+           </div>
+          </a>
+          {% endfor %}
+          {% else %}
+          {% for category_item in category_items %}
+          <a href="{% url 'main:last-item-details' category_item.id %}">
+           <div class="card">
+              <p class="card-text">{{ category_item.name }}</p>
+           </div>
+          </a>
+          {% endfor %}
+          {% endif %}
+          <!-- End Category Items card -->
+          </section>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <style>
+    .card {
+        background-color: var(--surface-color);
+        padding: 15px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        border:1px solid rgb(233, 233, 233);  
+        border-radius: 0px;
+    }
+    .card-text {
+        font-size: 16px;
+        font-weight: 500;
+    }
+  </style>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <main class="main">
+
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-10">
+
+          <!-- Blog Details Section -->
+          <section id="blog-details" class="blog-details section">
+            <div class="container">
+
+              <article class="article">
+                <div class="post-img row">
+                  {% for item_image in item_images %}
+                  <div class="item-image col-lg-6 py-2">
+                    <img src="{{ item_image.img.url }}" alt="" class="img-fluid">
+                  </div>
+                  {% endfor %}
+                </div>
+
+                <h2 class="title text-center">{{ category_item.name }}</h2>
+
+
+                  <div class="content">
+                    {{ category_item.about|safe }}
+                  </div><!-- End post content -->
+
+
+              </article>
+
+            </div>
+          </section><!-- /Blog Details Section -->
+
+
+        </div>
+
+        <div class="col-lg-2 sidebar">
+
+          <div class="widgets-container">
+
+
+            <!-- Recent Posts Widget 2 -->
+            <div class="recent-posts-widget-2 widget-item">
+
+              <h3 class="widget-title">Recent Posts</h3>
+              {% if recent_category_items %}
+              {% for recent_new in recent_category_items %}
+              <div class="post-item">
+                <h4><a href="{% url 'main:category-item-details' recent_new.id %}">{{ recent_new.name }}</a></h4>
+              </div><!-- End recent post item-->
+              {% endfor %}
+              {% elif recent_category_items_ %}
+              {% for recent_new in recent_category_items_ %}
+              <div class="post-item">
+                <h4><a href="{% url 'main:last-item-details' recent_new.id %}">{{ recent_new.name }}</a></h4>
+              </div><!-- End recent post item-->
+              {% endfor %}
+              {% endif %}
+
+
+            </div><!--/Recent Posts Widget 2 -->
+
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+{% endblock %}
+
+
+
+
